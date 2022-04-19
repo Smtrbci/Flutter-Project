@@ -17,18 +17,18 @@ class _SignInState extends State<SignIn> {
           elevation: 0,
           leading: IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left,
-              color: Colors.tealAccent[400],
+              color: Color.fromARGB(255, 90, 189, 140),
             ),
           ),
         ),
         body: Column(
           children: [
             Container(
-              child: Align(
+              child: const Align(
                 alignment: Alignment.topLeft,
-                child: const Text(
+                child: Text(
                   "Sign In",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
@@ -42,7 +42,7 @@ class _SignInState extends State<SignIn> {
                   decoration: InputDecoration(
                     hintText: "Optional Group Special Code",
                     filled: true,
-                    fillColor: Color.fromARGB(179, 200, 200, 200),
+                    fillColor: Color.fromARGB(40, 239, 239, 239),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -61,7 +61,7 @@ class _SignInState extends State<SignIn> {
                   decoration: InputDecoration(
                     hintText: "Email Address",
                     filled: true,
-                    fillColor: Color.fromARGB(179, 200, 200, 200),
+                    fillColor: Color.fromARGB(40, 239, 239, 239),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -80,7 +80,7 @@ class _SignInState extends State<SignIn> {
                   decoration: InputDecoration(
                     hintText: "Password",
                     filled: true,
-                    fillColor: Color.fromARGB(179, 200, 200, 200),
+                    fillColor: Color.fromARGB(40, 239, 239, 239),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -109,7 +109,23 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-            ],
+            const SizedBox(height: 16),
+            OutlinedButton(
+              onPressed: () {},
+              child: const Text(
+                'Sing In',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 90, 189, 140), fontSize: 20),
+              ),
+              style: OutlinedButton.styleFrom(
+                shape: const StadiumBorder(),
+                side: const BorderSide(
+                  color: Color.fromARGB(255, 90, 189, 140),
+                ),
+                minimumSize: const Size(350, 50),
+              ),
+            ),
+          ],
         ),
         backgroundColor: Colors.white,
       ),
