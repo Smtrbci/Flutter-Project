@@ -25,6 +25,7 @@ class _homeSignState extends State<homeSign> {
           _skipTextButton(),
         ],
       ),
+      backgroundColor: Colors.white,
     );
   }
 
