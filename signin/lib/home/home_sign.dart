@@ -20,9 +20,32 @@ class _homeSignState extends State<homeSign> {
           _helpUsHelpYouText(),
           _firstText(),
           _secondText(),
+          _stateTextFormField(),
         ],
       ),
     );
+  }
+
+  Padding _stateTextFormField() {
+    return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: TextFormField(
+            decoration: const InputDecoration(
+              hintText: "State",
+              hintStyle: TextStyle(
+                color: Color.fromARGB(75, 33, 33, 33),
+              ),
+              filled: true,
+              fillColor: Color.fromARGB(40, 239, 239, 239),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+        );
   }
 
   Container _secondText() {
