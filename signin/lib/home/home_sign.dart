@@ -17,24 +17,58 @@ class _homeSignState extends State<homeSign> {
       ),
       body: Column(
         children: [
-          _helpUsHelpYouText()
+          _helpUsHelpYouText(),
+          _firstText(),
+          _secondText(),
         ],
       ),
     );
   }
 
-  Container _helpUsHelpYouText() {
+  Container _secondText() {
     return Container(
           child: const Padding(
-            padding: EdgeInsets.only(left: 20.0),
+            padding: EdgeInsets.all(20.0),
             child: Align(
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
               child: Text(
-                "Help Us Help You",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                "If you choose to skip, you can change yourlocation at any time in your account settings.",
+                style: TextStyle(
+                    color: Color.fromARGB(75, 33, 33, 33), fontSize: 15),
               ),
             ),
           ),
         );
+  }
+
+  Container _firstText() {
+    return Container(
+          child: const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "It seems as this is your first time using our app, please enter your location so we can filter our results and stock accordingly to your local store.",
+                style: TextStyle(
+                    color: Color.fromARGB(75, 33, 33, 33), fontSize: 15),
+              ),
+            ),
+          ),
+        );
+  }
+
+  Container _helpUsHelpYouText() {
+    return Container(
+      child: const Padding(
+        padding: EdgeInsets.only(left: 20.0),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Help Us Help You",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+        ),
+      ),
+    );
   }
 }
