@@ -12,8 +12,12 @@ class _homeSignState extends State<homeSign> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
-      body: Column(children: [],),
+      body: Column(children: const [
+        
+      ],),
     );
   }
 }
