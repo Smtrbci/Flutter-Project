@@ -22,9 +22,32 @@ class _homeSignState extends State<homeSign> {
           _secondText(),
           _stateTextFormField(),
           _cityTextFormField(),
+          _skipTextButton(),
         ],
       ),
     );
+  }
+
+  Container _skipTextButton() {
+    return Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  "Skip",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 90, 189, 140),
+                  ),
+                ),
+                style: TextButton.styleFrom(
+                  primary: Color.fromARGB(40, 90, 189, 139),
+                ),
+              )
+            ],
+          ),
+        );
   }
 
   Padding _cityTextFormField() {
