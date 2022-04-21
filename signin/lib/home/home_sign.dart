@@ -18,8 +18,7 @@ class _homeSignState extends State<homeSign> {
       body: Column(
         children: [
           _helpUsHelpYouText(),
-          _firstText(),
-          _secondText(),
+          _textForm(),
           _stateTextFormField(),
           _cityTextFormField(),
           _skipTextButton(),
@@ -29,102 +28,93 @@ class _homeSignState extends State<homeSign> {
     );
   }
 
-  Container _skipTextButton() {
+  Container _textForm() {
     return Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  "Skip",
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: const [
+                Text(
+                  "It seems as this is your first time using our app, please enter your location so we can filter our results and stock accordingly to your local store.",
                   style: TextStyle(
-                    color: Color.fromARGB(255, 90, 189, 140),
-                  ),
+                      color: Color.fromARGB(75, 33, 33, 33), fontSize: 15),
                 ),
-                style: TextButton.styleFrom(
-                  primary: Color.fromARGB(40, 90, 189, 139),
+                SizedBox(height: 20.0),
+                Text(
+                  "If you choose to skip, you can change yourlocation at any time in your account settings.",
+                  style: TextStyle(
+                      color: Color.fromARGB(75, 33, 33, 33), fontSize: 15),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         );
+  }
+
+  Container _skipTextButton() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () {},
+            child: const Text(
+              "Skip",
+              style: TextStyle(
+                color: Color.fromARGB(255, 90, 189, 140),
+              ),
+            ),
+            style: TextButton.styleFrom(
+              primary: Color.fromARGB(40, 90, 189, 139),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Padding _cityTextFormField() {
     return Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextFormField(
-            decoration: const InputDecoration(
-              hintText: "City",
-              hintStyle: TextStyle(
-                color: Color.fromARGB(75, 33, 33, 33),
-              ),
-              filled: true,
-              fillColor: Color.fromARGB(40, 239, 239, 239),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-                borderSide: BorderSide.none,
-              ),
-            ),
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          hintText: "City",
+          hintStyle: TextStyle(
+            color: Color.fromARGB(75, 33, 33, 33),
           ),
-        );
+          filled: true,
+          fillColor: Color.fromARGB(40, 239, 239, 239),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
   }
 
   Padding _stateTextFormField() {
     return Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextFormField(
-            decoration: const InputDecoration(
-              hintText: "State",
-              hintStyle: TextStyle(
-                color: Color.fromARGB(75, 33, 33, 33),
-              ),
-              filled: true,
-              fillColor: Color.fromARGB(40, 239, 239, 239),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-                borderSide: BorderSide.none,
-              ),
-            ),
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          hintText: "State",
+          hintStyle: TextStyle(
+            color: Color.fromARGB(75, 33, 33, 33),
           ),
-        );
-  }
-
-  Container _secondText() {
-    return Container(
-          child: const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                "If you choose to skip, you can change yourlocation at any time in your account settings.",
-                style: TextStyle(
-                    color: Color.fromARGB(75, 33, 33, 33), fontSize: 15),
-              ),
+          filled: true,
+          fillColor: Color.fromARGB(40, 239, 239, 239),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
             ),
+            borderSide: BorderSide.none,
           ),
-        );
-  }
-
-  Container _firstText() {
-    return Container(
-          child: const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                "It seems as this is your first time using our app, please enter your location so we can filter our results and stock accordingly to your local store.",
-                style: TextStyle(
-                    color: Color.fromARGB(75, 33, 33, 33), fontSize: 15),
-              ),
-            ),
-          ),
-        );
+        ),
+      ),
+    );
   }
 
   Container _helpUsHelpYouText() {
