@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../color/app_color.dart';
+import 'color/app_color.dart';
 
 class homeSign extends StatefulWidget {
   const homeSign({Key? key}) : super(key: key);
