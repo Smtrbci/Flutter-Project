@@ -11,10 +11,7 @@ class _homeSignState extends State<homeSign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: _appBar(),
       body: Column(
         children: [
           _helpUsHelpYouText(),
@@ -25,6 +22,13 @@ class _homeSignState extends State<homeSign> {
         ],
       ),
       backgroundColor: Colors.white,
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
     );
   }
 
