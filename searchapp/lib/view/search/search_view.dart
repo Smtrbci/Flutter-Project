@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:searchapp/cosnstant/fontweight_constant.dart';
 
 import '../../cosnstant/color_constant.dart';
+import '../../product/model.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -58,152 +59,26 @@ class _SearchViewState extends State<SearchView> {
       );
   }
 
-  SizedBox _categoryGridView() {
-    return SizedBox(
-            height: 546,
-            child: GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: 4.0 / 5.0,
-              primary: false,
-              padding: const EdgeInsets.all(10),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: const <Widget>[
-                      Text(
-                        "Biography",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: ColorConstants.textWhite, fontSize: 17),
-                      ),
-                      Image(
-                          image: AssetImage('assets/images/Biography.png'),
-                          height: 150,
-                          width: 150),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.biographyColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: const <Widget>[
-                      Text(
-                        "Business",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: ColorConstants.textWhite, fontSize: 17),
-                      ),
-                      Image(
-                          image: AssetImage('assets/images/Business.png'),
-                          height: 150,
-                          width: 150),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.businessColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: const <Widget>[
-                      Text(
-                        "Children",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: ColorConstants.textWhite, fontSize: 17),
-                      ),
-                      Image(
-                          image: AssetImage('assets/images/Children.png'),
-                          height: 150,
-                          width: 150),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.childrenColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: const <Widget>[
-                      Text(
-                        "Cookery",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: ColorConstants.textWhite, fontSize: 17),
-                      ),
-                      Image(
-                          image: AssetImage('assets/images/Cookery.png'),
-                          height: 150,
-                          width: 150),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.cookeryColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: const <Widget>[
-                      Text(
-                        "Fiction",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: ColorConstants.textWhite, fontSize: 17),
-                      ),
-                      Image(
-                          image: AssetImage('assets/images/Fiction.png'),
-                          height: 150,
-                          width: 150),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.fictionColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(25),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: const <Widget>[
-                      Text(
-                        "Graphic Novels",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: ColorConstants.textWhite, fontSize: 17),
-                      ),
-                      Image(
-                          image: AssetImage('assets/images/Graphic.png'),
-                          height: 150,
-                          width: 150),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.graphicColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ],
+  Widget _categoryGridView() {
+    return Container(
+      height: 400,
+      child: GridView.builder(itemCount: listem.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2) ,
+      itemBuilder: (context, index) {
+        return Card(
+          color: Colors.red,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(listem[index].baslik?? " adads"),
+              Image.asset(listem[index].resim?? " sdsdsd"),
+              //AssetImage(listem[index].resim?? ""),
+            ],
+          ));
+      },
             ),
-          );
+    );
   }
 
   SizedBox _horizontalListView() {
