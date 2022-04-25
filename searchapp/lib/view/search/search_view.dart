@@ -61,9 +61,9 @@ class _SearchViewState extends State<SearchView> {
 
   Widget _categoryGridView() {
     return Container(
-      height: 400,
+      height: 546,
       child: GridView.builder(itemCount: listem.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2) ,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (context, index) {
         return Card(
           color: Colors.red,
@@ -71,11 +71,10 @@ class _SearchViewState extends State<SearchView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(listem[index].baslik?? " adads"),
-              Image.asset(listem[index].resim?? " sdsdsd"),
-              //AssetImage(listem[index].resim?? ""),
+              Text(listem[index].baslik?? ""),
+              Image.asset(listem[index].resim?? ""),
             ],
-          ));
+          ),);
       },
             ),
     );
