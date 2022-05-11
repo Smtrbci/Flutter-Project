@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:futurehttp/httphello.dart';
+import 'package:futurehttp/views/httphello.dart';
+import 'package:futurehttp/views/json_placeholder_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: HttpHelloView()
+      home: JsonPlaceHolderView()
     );
   }
 }
