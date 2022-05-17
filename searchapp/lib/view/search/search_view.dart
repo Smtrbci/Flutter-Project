@@ -59,12 +59,12 @@ class _SearchViewState extends State<SearchView> {
   }
 
   Widget _categoryGridView() {
-    return Container(
+    return SizedBox(
       height: 578,
       child: GridView.builder(
         itemCount: listem.length,
         gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (context, index) {
           return Card(
             color: Colors.red,

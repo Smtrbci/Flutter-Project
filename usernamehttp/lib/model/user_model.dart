@@ -33,17 +33,17 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['username'] = this.username;
-    data['email'] = this.email;
-    if (this.address != null) {
-      data['address'] = this.address!.toJson();
+    data['id'] = id;
+    data['name'] = name;
+    data['username'] = username;
+    data['email'] = email;
+    if (address != null) {
+      data['address'] = address!.toJson();
     }
-    data['phone'] = this.phone;
-    data['website'] = this.website;
-    if (this.company != null) {
-      data['company'] = this.company!.toJson();
+    data['phone'] = phone;
+    data['website'] = website;
+    if (company != null) {
+      data['company'] = company!.toJson();
     }
     return data;
   }
@@ -68,12 +68,12 @@ class Address {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['street'] = this.street;
-    data['suite'] = this.suite;
-    data['city'] = this.city;
-    data['zipcode'] = this.zipcode;
-    if (this.geo != null) {
-      data['geo'] = this.geo!.toJson();
+    data['street'] = street;
+    data['suite'] = suite;
+    data['city'] = city;
+    data['zipcode'] = zipcode;
+    if (geo != null) {
+      data['geo'] = geo!.toJson();
     }
     return data;
   }
@@ -92,8 +92,8 @@ class Geo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
+    data['lat'] = lat;
+    data['lng'] = lng;
     return data;
   }
 }
@@ -113,9 +113,9 @@ class Company {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['catchPhrase'] = this.catchPhrase;
-    data['bs'] = this.bs;
+    data['name'] = name;
+    data['catchPhrase'] = catchPhrase;
+    data['bs'] = bs;
     return data;
   }
 }
