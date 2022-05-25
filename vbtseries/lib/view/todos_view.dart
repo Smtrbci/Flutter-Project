@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../model/todos_model.dart';
-import '../product/companents/text/app_text_strings.dart';
 import '../service/todos_service.dart';
 
 class ToDosView extends StatefulWidget {
@@ -49,7 +48,7 @@ class _ToDosViewState extends State<ToDosView> {
                   child: ListTile(
                     leading: const Icon(Icons.account_circle_outlined),
                     title: Text(
-                      _toDosModel?[index].title ?? AppString().nullData,
+                      _toDosModel?[index].title ?? " ",
                       overflow: TextOverflow.ellipsis,
                       maxLines: openText ? 20 : 2,
                     ),
