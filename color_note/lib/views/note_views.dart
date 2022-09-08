@@ -22,7 +22,7 @@ class _MyNotesState extends State<ColorNotes> {
       backgroundColor: AppStyle.mainColor,
       appBar: AppBar(
         elevation: 0.0,
-        title: const Text("My Notes", style: TextStyle(color: Color.fromARGB(255, 0, 173, 165)),),
+        title: const Text("Color Note", style: TextStyle(color: Color.fromARGB(255, 0, 173, 165)),),
         centerTitle: true,
         backgroundColor: AppStyle.mainColor,
       ),
