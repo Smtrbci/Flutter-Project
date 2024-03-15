@@ -1,2 +1,2 @@
-<img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.24.01" width="200">
-<img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.24.45.png" width="200"><img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.25.21.png" width="200"><img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.25.21.png" width="200">
+<img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.24.01.png" width="200">
+<img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.24.45.png" width="200"><img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.25.21.png" width="200"><img src="ScreenShot/Simulator Screenshot - iPhone 15 Pro Max - 2024-03-15 at 20.25.28.png" width="200">
