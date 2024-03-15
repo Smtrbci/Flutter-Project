@@ -1,2 +1,0 @@
-<img src="ScreenShot/Simulator Screenshot - 1.png" width="200">
-<img src="ScreenShot/Simulator Screenshot - 2.png" width="200"><img src="ScreenShot/Simulator Screenshot - 3.png" width="200"><img src="ScreenShot/Simulator Screenshot - 4.png" width="200">
