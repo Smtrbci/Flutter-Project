@@ -1,5 +1,6 @@
 import 'package:burclar_appication_demo/data/strings.dart';
 import 'package:burclar_appication_demo/model/burc.dart';
+import 'package:burclar_appication_demo/view/burc_item.dart';
 import 'package:flutter/material.dart';
 
 class BurcListesi extends StatelessWidget {
@@ -19,7 +20,7 @@ class BurcListesi extends StatelessWidget {
       body: Center(
         child: ListView.builder(
           itemBuilder: (context, index) {
-            return Container();
+            return BurcItem(listelenenBurc: tumBurclar[index],);
           },
           itemCount: tumBurclar.length,
         ),
