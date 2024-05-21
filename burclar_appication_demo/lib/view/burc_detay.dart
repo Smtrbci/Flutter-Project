@@ -1,5 +1,4 @@
 import 'package:burclar_appication_demo/model/burc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 
