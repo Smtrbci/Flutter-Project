@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:todo_mlpcare_app/utilities/add_button_view.dart';
+import '../utilities/add_button_view.dart';
 
 class DialogView extends StatelessWidget {
-  final kontroller;
-  VoidCallback onKayit;
-  VoidCallback onDevam;
-  DialogView({
+  final TextEditingController controller;
+  final VoidCallback onKayit;
+  final VoidCallback onDevam;
+
+  const DialogView({
     super.key,
-    required this.kontroller,
+    required this.controller,
     required this.onKayit,
     required this.onDevam,
   });
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color.fromRGBO(66, 85, 99, 10),
+      backgroundColor: const Color.fromRGBO(66, 85, 99, 1),
       title: const Text(
-        "Yeni To Do Oluşturma",
+        "Yeni ToDo Oluşturma",
         style: TextStyle(color: Colors.white),
       ),
       content: SizedBox(
@@ -27,7 +29,7 @@ class DialogView extends StatelessWidget {
           children: [
             TextField(
               style: TextStyle(color: Colors.white),
-              controller: kontroller,
+              controller: controller,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(width: 2.0, color: Colors.white),

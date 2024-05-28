@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_mlpcare_app/data/database.dart';
+import 'package:todo_mlpcare_app/data/realtimedatabesservice.dart';
+import 'package:todo_mlpcare_app/data/tododata.dart';
 import 'package:todo_mlpcare_app/utilities/dialog_view.dart';
 
 import '../utilities/todo_view.dart';
@@ -13,55 +13,45 @@ class homeview extends StatefulWidget {
 }
 
 class _homeviewState extends State<homeview> {
-  final _myBox = Hive.box('myBox');
-  ToDoDataBase db = ToDoDataBase();
+  final RealtimeDatabaseService _databaseService = RealtimeDatabaseService();
+  final TextEditingController _controller = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    if (_myBox.get("TODOLISTESI") == null) {
-      db.initiaDataOlusturma();
-    } else {
-      db.yuklemeData();
+  void _addTodo() {
+    if (_controller.text.isNotEmpty) {
+      final todo = Todo(
+        id: DateTime.now().toString(),
+        title: _controller.text,
+        isDone: false,
+      );
+      _databaseService.addTodo(todo);
+      _controller.clear();
+      Navigator.of(context).pop();
     }
   }
 
-  final _kontroller = TextEditingController();
-
-  void checkBoxDegisimi(bool? value, int index) {
-    setState(() {
-      db.toDoListesi[index][1] = !db.toDoListesi[index][1];
-    });
-    db.guncelemeDataBase();
+  void _toggleTodoStatus(Todo todo) {
+    todo.isDone = !todo.isDone;
+    _databaseService.updateTodo(todo);
   }
 
-  void yeniKayitTask() {
-    setState(() {
-      db.toDoListesi.add([_kontroller.text, false]);
-      _kontroller.clear();
-    });
-    Navigator.of(context).pop();
-    db.guncelemeDataBase();
+  void _deleteTodo(String id) {
+    _databaseService.deleteTodo(id);
   }
 
-  void taskOlusturma() {
+  void _showAddTodoDialog() {
     showDialog(
       context: context,
-      builder: (contex) {
+      builder: (BuildContext context) {
         return DialogView(
-          kontroller: _kontroller,
-          onDevam: () => Navigator.of(context).pop(),
-          onKayit: yeniKayitTask,
+          controller: _controller,
+          onKayit: _addTodo,
+          onDevam: () {
+            _controller.clear();
+            Navigator.of(context).pop();
+          },
         );
       },
     );
-  }
-
-  void taskSilme(int index) {
-    setState(() {
-      db.toDoListesi.removeAt(index);
-    });
-    db.guncelemeDataBase();
   }
 
   @override
@@ -80,21 +70,45 @@ class _homeviewState extends State<homeview> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlue,
-        onPressed: taskOlusturma,
+        onPressed: _showAddTodoDialog,
         child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: ListView.builder(
-        itemCount: db.toDoListesi.length,
-        itemBuilder: (context, index) {
-          return ToDoView(
-            taskadi: db.toDoListesi[index][0],
-            taskTamamlandi: db.toDoListesi[index][1],
-            ondegistirildi: (value) => checkBoxDegisimi(value, index),
-            silmeIslevi: () => taskSilme(index),
+      body: StreamBuilder<List<Todo>>(
+        stream: _databaseService.getTodos(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text('Veri Yok'),
+            );
+          }
+          final todos = snapshot.data!;
+          return ListView.builder(
+            itemCount: todos.length,
+            itemBuilder: (context, index) {
+              final todo = todos[index];
+              return ToDoView(
+                key: ValueKey(todo.id),
+                taskadi: todo.title,
+                taskTamamlandi: todo.isDone,
+                ondegistirildi: (value) {
+                  setState(() {
+                    _toggleTodoStatus(todo);
+                  });
+                },
+                silmeIslevi: () {
+                  _deleteTodo(todo.id);
+                },
+              );
+            },
           );
         },
       ),
