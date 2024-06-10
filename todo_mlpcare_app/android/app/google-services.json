@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "401211579684",
+    "project_id": "flutter-todo-demo-app",
+    "storage_bucket": "flutter-todo-demo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401211579684:android:52272b28ba699569d327b1",
+        "android_client_info": {
+          "package_name": "com.example.todo_mlpcare_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmcvXw7nvbuTbcjUr5wvwKP7bPDbOxW5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
