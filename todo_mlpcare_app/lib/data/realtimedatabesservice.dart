@@ -1,9 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
 
-
 class RealtimeDatabaseService {
-  final DatabaseReference _todoRef = FirebaseDatabase(databaseURL: "https://flutter-todo-demo-app-default-rtdb.europe-west1.firebasedatabase.app").reference();
+  late FirebaseDatabase database;
+  late DatabaseReference _todoRef;
+
+  RealtimeDatabaseService() {
+    _init();
+  }
+
+  void _init() {
+    database = FirebaseDatabase.instanceFor(
+        app: Firebase.app(),
+        databaseURL:
+            'https://flutter-todo-demo-app-default-rtdb.europe-west1.firebasedatabase.app');
+    _todoRef = database.ref();
+  }
 
   Future<void> addTodo(Todo todo) {
     return _todoRef.push().set(todo.toMap());
@@ -13,12 +27,30 @@ class RealtimeDatabaseService {
     return _todoRef.child(todo.id).update(todo.toMap());
   }
 
+  Future<void> updateTodoTitle(String id, String newTitle) {
+    return _todoRef.child(id).update({'title': newTitle});
+  }
+
   Future<void> deleteTodo(String id) {
     return _todoRef.child(id).remove();
   }
 
-  Stream<List<Todo>> getTodos() {
-    return _todoRef.onValue.map((event) {
+  Future<void> saveSelectedIcon(String userId, int iconIndex) async {
+    await _todoRef.child('users/$userId/selectedIcon').set(iconIndex);
+  }
+
+  Future<int?> loadSelectIcon(String userId) async {
+    final snapshot = await _todoRef.child('users/$userId/selectedIcon').once();
+    final iconIndex = snapshot.snapshot.value;
+    if (iconIndex != null) {
+      return iconIndex as int;
+    }
+    return null;
+  }
+
+  Future<List<Todo>> getTodos() async {
+    //await Future.delayed(Duration(seconds: 1));
+    final todoStream = _todoRef.onValue.map((event) {
       final todos = <Todo>[];
       final data = event.snapshot.value as Map<dynamic, dynamic>?;
 
@@ -30,11 +62,16 @@ class RealtimeDatabaseService {
               id: key,
               title: todoMap['title'],
               isDone: todoMap['isDone'],
+              //userId: todoMap['your_user_id'],
+              icon: todoMap['icon'] != null
+                  ? IconData(todoMap['icon'], fontFamily: 'MaterialIcons')
+                  : null,
             ));
           }
         });
       }
       return todos;
     });
+    return todoStream.first;
   }
 }

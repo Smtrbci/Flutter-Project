@@ -13,6 +13,8 @@ class DialogView extends StatelessWidget {
     required this.onDevam,
   });
 
+
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -28,11 +30,12 @@ class DialogView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextField(
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               controller: controller,
               decoration: const InputDecoration(
+                //fillColor: Colors.white, filled: true,
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2.0, color: Colors.white),
+                  borderSide: BorderSide(width: 10.0, color: Colors.white),
                 ),
                 hintText: "Lütfen Yazınız",
                 hintStyle: TextStyle(color: Colors.white),
