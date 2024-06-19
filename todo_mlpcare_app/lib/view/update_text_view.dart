@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todo_mlpcare_app/data/icons_data.dart';
@@ -6,6 +7,7 @@ import 'package:todo_mlpcare_app/data/tododata.dart';
 import 'package:todo_mlpcare_app/utilities/appbar_view.dart';
 import 'package:flutter/cupertino.dart';
 
+@RoutePage()
 class UpdateTextView extends StatefulWidget {
   final Todo todo;
 
