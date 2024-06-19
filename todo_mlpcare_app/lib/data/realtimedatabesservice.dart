@@ -52,6 +52,7 @@ class RealtimeDatabaseService {
     //await Future.delayed(Duration(seconds: 1));
     final todoStream = _todoRef.onValue.map((event) {
       final todos = <Todo>[];
+
       final data = event.snapshot.value as Map<dynamic, dynamic>?;
 
       if (data != null) {

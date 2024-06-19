@@ -20,7 +20,6 @@ class ToDoView extends StatefulWidget {
 }
 
 class _ToDoViewState extends State<ToDoView> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,7 +43,6 @@ class _ToDoViewState extends State<ToDoView> {
                   side: const BorderSide(color: Colors.white),
                 ),
                 Icon(widget.todo.icon, color: Colors.white),
-
                 const SizedBox(
                   width: 15,
                 ),

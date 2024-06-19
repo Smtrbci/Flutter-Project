@@ -1,45 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:todo_mlpcare_app/data/icons_data.dart';
 import 'package:todo_mlpcare_app/data/realtimedatabesservice.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
 import 'package:todo_mlpcare_app/utilities/appbar_view.dart';
-import 'package:flutter/cupertino.dart';
 
 class UpdateTextView extends StatefulWidget {
-  final Todo todo;
+  final Todo? todo;
 
-  const UpdateTextView({
-    super.key,
-    required this.todo,
-  });
+  UpdateTextView({
+    Key? key,
+    this.todo,
+  }) : super(key: key);
 
   @override
-  State<UpdateTextView> createState() => _UpdateTextViewState();
+  _UpdateTextViewState createState() => _UpdateTextViewState();
 }
 
 class _UpdateTextViewState extends State<UpdateTextView> {
   IconData? _selectedIcon;
   final RealtimeDatabaseService _databaseService = RealtimeDatabaseService();
   final TextEditingController _controller = TextEditingController();
+  bool _isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.todo.title;
-    _selectedIcon = widget.todo.icon;
+    if (widget.todo != null) {
+      _controller.text = widget.todo!.title;
+      _selectedIcon = widget.todo!.icon;
+    }
   }
 
-  void _updateTodo() {
-    if (_controller.text.isNotEmpty) {
-      widget.todo.updateTitle(_controller.text);
-      widget.todo.updateIcon(_selectedIcon);
-      _databaseService.updateTodo(widget.todo).then((_){
-        Navigator.of(context).pop(widget.todo);
+  void _updateTodo() async{
+    if (_controller.text.isNotEmpty && !_isSaving) {
+      setState(() {
+        _isSaving = true;
       });
-      //_databaseService.updateTodoTitle(widget.todo.id, _controller.text);
-
     }
+      if (widget.todo != null) {
+        widget.todo!.title = _controller.text;
+        widget.todo!.icon = _selectedIcon;
+        _databaseService.updateTodo(widget.todo!).then((_) {
+          Navigator.of(context).pop(widget.todo);
+        });
+      } else {
+        Todo newTodo = Todo(
+          id: DateTime.now().toString(),
+          title: _controller.text,
+          isDone: false,
+          icon: _selectedIcon,
+        );
+        _databaseService.addTodo(newTodo).then((_) {
+          Navigator.of(context).pop(newTodo);
+        });
+      }
+      setState(() {
+        _isSaving = false;
+      });
+
   }
 
   @override
@@ -47,7 +65,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(66, 85, 99, 70),
       appBar: const AppBarView(
-        title: '',
+        title: 'Todo Güncelle',
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -101,17 +119,17 @@ class _UpdateTextViewState extends State<UpdateTextView> {
             ),
             Center(
                 child: Container(
-              width: 200,
-              height: 50,
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(66, 85, 99, 50),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Icon(
-                _selectedIcon,
-                color: Colors.white,
-              ),
-            )),
+                  width: 200,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(66, 85, 99, 50),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Icon(
+                    _selectedIcon,
+                    color: Colors.white,
+                  ),
+                )),
             const SizedBox(
               height: 20,
             ),
@@ -125,7 +143,6 @@ class _UpdateTextViewState extends State<UpdateTextView> {
                   style: const TextStyle(color: Colors.white),
                   controller: _controller,
                   decoration: const InputDecoration(
-                    //contentPadding: EdgeInsets.symmetric(vertical: 100.0),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 1.0, color: Colors.white),
                     ),
@@ -139,14 +156,15 @@ class _UpdateTextViewState extends State<UpdateTextView> {
             ),
             Center(
               child: ElevatedButton(
-                  onPressed: _updateTodo,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(66, 85, 99, 50),
-                  ),
-                  child: const Text(
-                    'Güncelle',
-                    style: TextStyle(color: Colors.white),
-                  )),
+                onPressed: _updateTodo,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(66, 85, 99, 50),
+                ),
+                child: Text(
+                  widget.todo != null ? 'Güncelle' : 'Oluştur',
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
             )
           ],
         ),
