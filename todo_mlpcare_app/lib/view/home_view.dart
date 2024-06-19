@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_mlpcare_app/data/realtimedatabesservice.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
@@ -6,6 +7,7 @@ import 'package:todo_mlpcare_app/utilities/appbar_view.dart';
 import 'package:todo_mlpcare_app/view/update_text_view.dart';
 import '../utilities/todo_view.dart';
 
+@RoutePage()
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
