@@ -1,10 +1,9 @@
-import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_mlpcare_app/data/realtimedatabesservice.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
+import 'package:todo_mlpcare_app/routes/app_routes.gr.dart';
 import 'package:todo_mlpcare_app/utilities/appbar_view.dart';
-import 'package:todo_mlpcare_app/view/update_text_view.dart';
 import '../utilities/todo_view.dart';
 
 @RoutePage()
@@ -48,12 +47,10 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _showUpdateTodoView(Todo todo) async {
-    final updatedTodo = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => UpdateTextView(todo: todo),
-      ),
+    final updatedTodo = await context.router.push(
+      UpdateTextView(todo: todo),
     );
-    if (updatedTodo != null) {
+    if (updatedTodo is Todo) {
       setState(() {
         final index = _todos.indexWhere((t) => t.id == updatedTodo.id);
         if (index != -1) {
@@ -65,12 +62,10 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _openUpdateTextViewForTodo() async {
-    final newTodo = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => UpdateTextView(),
-      ),
+    final newTodo = await context.router.push(
+      UpdateTextView(),
     );
-    if (newTodo != null) {
+    if (newTodo is Todo) {
       setState(() {
         _todos.add(newTodo);
       });

@@ -13,7 +13,7 @@ class Todo {
     required this.title,
     //required this.userId,
     this.isDone = false,
-    this.icon,
+    this.icon, required,
   });
 
   Map<String, dynamic> toMap() {

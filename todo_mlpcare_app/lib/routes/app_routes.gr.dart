@@ -26,7 +26,8 @@ abstract class $AppRouter extends _i3.RootStackRouter {
       );
     },
     UpdateTextView.name: (routeData) {
-      final args = routeData.argsAs<UpdateTextViewArgs>();
+      final args = routeData.argsAs<UpdateTextViewArgs>(
+          orElse: () => const UpdateTextViewArgs());
       return _i3.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.UpdateTextView(
@@ -57,7 +58,7 @@ class HomeView extends _i3.PageRouteInfo<void> {
 class UpdateTextView extends _i3.PageRouteInfo<UpdateTextViewArgs> {
   UpdateTextView({
     _i4.Key? key,
-    required _i5.Todo todo,
+    _i5.Todo? todo,
     List<_i3.PageRouteInfo>? children,
   }) : super(
           UpdateTextView.name,
@@ -77,12 +78,12 @@ class UpdateTextView extends _i3.PageRouteInfo<UpdateTextViewArgs> {
 class UpdateTextViewArgs {
   const UpdateTextViewArgs({
     this.key,
-    required this.todo,
+    this.todo,
   });
 
   final _i4.Key? key;
 
-  final _i5.Todo todo;
+  final _i5.Todo? todo;
 
   @override
   String toString() {

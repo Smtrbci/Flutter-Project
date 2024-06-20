@@ -33,18 +33,16 @@ class _UpdateTextViewState extends State<UpdateTextView> {
     }
   }
 
-  void _updateTodo() async{
+  void _updateTodo() async {
     if (_controller.text.isNotEmpty && !_isSaving) {
       setState(() {
         _isSaving = true;
       });
-    }
       if (widget.todo != null) {
         widget.todo!.title = _controller.text;
         widget.todo!.icon = _selectedIcon;
-        _databaseService.updateTodo(widget.todo!).then((_) {
-          Navigator.of(context).pop(widget.todo);
-        });
+        await _databaseService.updateTodo(widget.todo!);
+        context.router.pop(widget.todo);
       } else {
         Todo newTodo = Todo(
           id: DateTime.now().toString(),
@@ -52,14 +50,13 @@ class _UpdateTextViewState extends State<UpdateTextView> {
           isDone: false,
           icon: _selectedIcon,
         );
-        _databaseService.addTodo(newTodo).then((_) {
-          Navigator.of(context).pop(newTodo);
-        });
+        await _databaseService.addTodo(newTodo);
+        context.router.pop(newTodo);
       }
       setState(() {
         _isSaving = false;
       });
-
+    }
   }
 
   @override
@@ -116,9 +113,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
                 },
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Center(
                 child: Container(
                   width: 200,
@@ -132,9 +127,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
                     color: Colors.white,
                   ),
                 )),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Center(
               child: Container(
                 height: 450,
@@ -153,9 +146,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: _updateTodo,
