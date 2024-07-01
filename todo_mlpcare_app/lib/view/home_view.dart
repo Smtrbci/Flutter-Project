@@ -1,49 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_mlpcare_app/data/realtimedatabesservice.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
+import 'package:todo_mlpcare_app/provider/todo_provider.dart';
 import 'package:todo_mlpcare_app/routes/app_routes.gr.dart';
 import 'package:todo_mlpcare_app/utilities/appbar_view.dart';
-import '../utilities/todo_view.dart';
+import 'package:todo_mlpcare_app/utilities/todo_view.dart';
 
 @RoutePage()
-class HomeView extends StatefulWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  ConsumerState<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  List<Todo> _todos = [];
-  final RealtimeDatabaseService _databaseService = RealtimeDatabaseService();
+class _HomeViewState extends ConsumerState<HomeView> {
   final TextEditingController _controller = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    _loadTodos();
-  }
-
-  void _loadTodos() {
-    _databaseService.getTodos().then((todos) {
-      setState(() {
-        _todos = todos;
-      });
-    });
-  }
-
-  void _toggleTodoStatus(Todo todo) {
-    setState(() {
-      todo.isDone = !todo.isDone;
-    });
-    _databaseService.updateTodo(todo);
-  }
-
-  void _deleteTodo(String id) {
-    _databaseService.deleteTodo(id).then((_) {
-      _loadTodos();
-    });
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   void _showUpdateTodoView(Todo todo) async {
@@ -51,13 +29,7 @@ class _HomeViewState extends State<HomeView> {
       UpdateTextView(todo: todo),
     );
     if (updatedTodo is Todo) {
-      setState(() {
-        final index = _todos.indexWhere((t) => t.id == updatedTodo.id);
-        if (index != -1) {
-          _todos[index] = updatedTodo;
-        }
-      });
-      _loadTodos();
+      ref.read(todoProvider.notifier).updateTodo(updatedTodo);
     }
   }
 
@@ -66,16 +38,13 @@ class _HomeViewState extends State<HomeView> {
       UpdateTextView(),
     );
     if (newTodo is Todo) {
-      setState(() {
-        _todos.add(newTodo);
-      });
-      _loadTodos();
+      ref.read(todoProvider).addTodo(
+        newTodo.title,
+        newTodo.icon
+      );
     }
   }
 
-  Future<void> _refreshTodos() async {
-    _loadTodos();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,29 +62,35 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: RefreshIndicator(
-        onRefresh: _refreshTodos,
-        child: ListView.builder(
-          itemCount: _todos.length,
-          itemBuilder: (context, index) {
-            final todo = _todos[index];
-            return ToDoView(
-              key: ValueKey(todo.id),
-              todo: todo,
-              ondegistirildi: (value) {
-                setState(() {
-                  _toggleTodoStatus(todo);
-                });
+      body: Consumer(
+        builder: (context, ref, child) {
+          final todoListProvider = ref.watch(todoProvider);
+          final todoNotifier = ref.read(todoProvider.notifier);
+          return RefreshIndicator(
+            onRefresh: () async {
+              todoNotifier.loadTodos();
+            },
+            child: ListView.builder(
+              itemCount: todoListProvider.todos.length,
+              itemBuilder: (context, index) {
+                final todo = todoListProvider.todos[index];
+                return ToDoView(
+                  key: ValueKey(todo.id),
+                  todo: todo,
+                  ondegistirildi: (value) {
+                    todoNotifier.toggleTodoStatus(todo);
+                  },
+                  silmeIslevi: () {
+                    todoNotifier.deleteTodo(todo.id);
+                  },
+                  onTap: () {
+                    _showUpdateTodoView(todo);
+                  },
+                );
               },
-              silmeIslevi: () {
-                _deleteTodo(todo.id);
-              },
-              onTap: () {
-                _showUpdateTodoView(todo);
-              },
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

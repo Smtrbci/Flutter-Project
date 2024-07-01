@@ -15,12 +15,16 @@ class RealtimeDatabaseService {
     database = FirebaseDatabase.instanceFor(
         app: Firebase.app(),
         databaseURL:
-            'https://flutter-todo-demo-app-default-rtdb.europe-west1.firebasedatabase.app');
+        'https://flutter-todo-demo-app-default-rtdb.europe-west1.firebasedatabase.app');
     _todoRef = database.ref();
   }
 
+  String generateId(){
+    return _todoRef.push().key!;
+  }
+
   Future<void> addTodo(Todo todo) {
-    return _todoRef.push().set(todo.toMap());
+    return _todoRef.child(todo.id).set(todo.toMap());
   }
 
   Future<void> updateTodo(Todo todo) {
@@ -35,10 +39,6 @@ class RealtimeDatabaseService {
     return _todoRef.child(id).remove();
   }
 
-  Future<void> saveSelectedIcon(String userId, int iconIndex) async {
-    await _todoRef.child('users/$userId/selectedIcon').set(iconIndex);
-  }
-
   Future<int?> loadSelectIcon(String userId) async {
     final snapshot = await _todoRef.child('users/$userId/selectedIcon').once();
     final iconIndex = snapshot.snapshot.value;
@@ -49,7 +49,6 @@ class RealtimeDatabaseService {
   }
 
   Future<List<Todo>> getTodos() async {
-    //await Future.delayed(Duration(seconds: 1));
     final todoStream = _todoRef.onValue.map((event) {
       final todos = <Todo>[];
 
@@ -63,7 +62,6 @@ class RealtimeDatabaseService {
               id: key,
               title: todoMap['title'],
               isDone: todoMap['isDone'],
-              //userId: todoMap['your_user_id'],
               icon: todoMap['icon'] != null
                   ? IconData(todoMap['icon'], fontFamily: 'MaterialIcons')
                   : null,

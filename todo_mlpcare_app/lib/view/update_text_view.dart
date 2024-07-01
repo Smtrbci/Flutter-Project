@@ -45,7 +45,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
         context.router.pop(widget.todo);
       } else {
         Todo newTodo = Todo(
-          id: DateTime.now().toString(),
+          id: _databaseService.generateId(),
           title: _controller.text,
           isDone: false,
           icon: _selectedIcon,

@@ -4,23 +4,21 @@ import 'package:flutter/cupertino.dart';
 class Todo {
   String id;
   String title;
-  //String userId;
   bool isDone;
   IconData? icon;
 
   Todo({
     required this.id,
     required this.title,
-    //required this.userId,
     this.isDone = false,
-    this.icon, required,
+    this.icon,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'title': title,
       'isDone': isDone,
-      //'your_user_id': userId,
       'icon': icon?.codePoint,
     };
   }
@@ -29,15 +27,16 @@ class Todo {
     final value = snapshot.value as Map<dynamic, dynamic>?;
 
     if (value == null) {
-      throw Exception("...");
+      throw Exception("Anlık Görüntü Değeri Boş");
     }
 
     return Todo(
       id: snapshot.key!,
       title: value['title'],
       isDone: value['isDone'],
-      //userId: value['your_user_id'],
-      icon: value['icon'] != null ? IconData(value['icon'], fontFamily: 'MaterialIcons') : null,
+      icon: value['icon'] != null
+          ? IconData(value['icon'], fontFamily: 'MaterialIcons')
+          : null,
     );
   }
 
