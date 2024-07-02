@@ -42,7 +42,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
         widget.todo!.title = _controller.text;
         widget.todo!.icon = _selectedIcon;
         await _databaseService.updateTodo(widget.todo!);
-        context.router.pop(widget.todo);
+        context.router.maybePop(widget.todo);
       } else {
         Todo newTodo = Todo(
           id: _databaseService.generateId(),
@@ -51,7 +51,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
           icon: _selectedIcon,
         );
         await _databaseService.addTodo(newTodo);
-        context.router.pop(newTodo);
+        context.router.maybePop(newTodo);
       }
       setState(() {
         _isSaving = false;
