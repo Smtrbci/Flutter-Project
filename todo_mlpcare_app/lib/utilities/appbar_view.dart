@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_mlpcare_app/cosntant/app_const/text.dart';
+import 'package:todo_mlpcare_app/cosntant/app_const/theme.dart';
 
 class AppBarView extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -8,13 +10,11 @@ class AppBarView extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
-        'To Do MLPCare',
-        style: TextStyle(color: Colors.white),
-      ),
+      title: Text(Texts.AppBarName,
+      style: TextStyle(fontWeight: TextStyles.TextBold)),
       centerTitle: true,
-      backgroundColor: const Color.fromRGBO(66, 85, 99, 50),
-      elevation: 0,
+      backgroundColor: DarkAppTheme.AppBarColor,
+      elevation: 1,
     );
   }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class IconList {
   static List<IconData> icons = [
-
     Icons.star,
     Icons.heart_broken,
     Icons.home,
@@ -14,4 +13,5 @@ class IconList {
     Icons.block,
     Icons.location_city,
   ];
+  static const todoadd = Icons.add;
 }

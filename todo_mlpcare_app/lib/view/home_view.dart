@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_mlpcare_app/cosntant/app_const/theme.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
 import 'package:todo_mlpcare_app/provider/todo_provider.dart';
 import 'package:todo_mlpcare_app/routes/app_routes.gr.dart';
 import 'package:todo_mlpcare_app/utilities/appbar_view.dart';
 import 'package:todo_mlpcare_app/utilities/todo_view.dart';
+
+import '../cosntant/app_const/icon.dart';
 
 @RoutePage()
 class HomeView extends ConsumerStatefulWidget {
@@ -38,59 +41,51 @@ class _HomeViewState extends ConsumerState<HomeView> {
       UpdateTextView(),
     );
     if (newTodo is Todo) {
-      ref.read(todoProvider).addTodo(
-        newTodo.title,
-        newTodo.icon
-      );
+      ref.read(todoProvider).addTodo(newTodo.title, newTodo.icon);
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
+    var provider = ref.watch(todoProvider);
+
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(66, 85, 99, 70),
-      appBar: const AppBarView(
-        title: '',
+      backgroundColor: DarkAppTheme.CenterColor,
+      appBar:  const AppBarView(
+        title: "",
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: DarkAppTheme.ButtonColor,
         onPressed: _openUpdateTextViewForTodo,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+        child: Icon(
+          IconList.todoadd,
+          color: DarkAppTheme.IconColor,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Consumer(
-        builder: (context, ref, child) {
-          final todoListProvider = ref.watch(todoProvider);
-          final todoNotifier = ref.read(todoProvider.notifier);
-          return RefreshIndicator(
-            onRefresh: () async {
-              todoNotifier.loadTodos();
-            },
-            child: ListView.builder(
-              itemCount: todoListProvider.todos.length,
-              itemBuilder: (context, index) {
-                final todo = todoListProvider.todos[index];
-                return ToDoView(
-                  key: ValueKey(todo.id),
-                  todo: todo,
-                  ondegistirildi: (value) {
-                    todoNotifier.toggleTodoStatus(todo);
-                  },
-                  silmeIslevi: () {
-                    todoNotifier.deleteTodo(todo.id);
-                  },
-                  onTap: () {
-                    _showUpdateTodoView(todo);
-                  },
-                );
-              },
-            ),
-          );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          provider.loadTodos();
         },
+        child: ListView.builder(
+          itemCount: provider.todos.length,
+          itemBuilder: (context, index) {
+            final todo = provider.todos[index];
+            return ToDoView(
+              key: ValueKey(todo.id),
+              todo: todo,
+              ondegistirildi: (value) {
+                provider.toggleTodoStatus(todo);
+              },
+              silmeIslevi: () {
+                provider.deleteTodo(todo.id);
+              },
+              onTap: () {
+                _showUpdateTodoView(todo);
+              },
+            );
+          },
+        ),
       ),
     );
   }

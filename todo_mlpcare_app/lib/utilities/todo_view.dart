@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_mlpcare_app/cosntant/app_const/theme.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
 
 class ToDoView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _ToDoViewState extends State<ToDoView> {
           child: Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(66, 85, 99, 50),
+              color: DarkAppTheme.TodoColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(

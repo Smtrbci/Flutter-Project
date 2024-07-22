@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_mlpcare_app/data/icons_data.dart';
+import 'package:todo_mlpcare_app/cosntant/app_const/icon.dart';
+import 'package:todo_mlpcare_app/cosntant/app_const/text.dart';
+import 'package:todo_mlpcare_app/cosntant/app_const/theme.dart';
 import 'package:todo_mlpcare_app/data/realtimedatabesservice.dart';
 import 'package:todo_mlpcare_app/data/tododata.dart';
 import 'package:todo_mlpcare_app/utilities/appbar_view.dart';
@@ -42,7 +44,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
         widget.todo!.title = _controller.text;
         widget.todo!.icon = _selectedIcon;
         await _databaseService.updateTodo(widget.todo!);
-        context.router.maybePop(widget.todo);
+        context.router.popForced(widget.todo);
       } else {
         Todo newTodo = Todo(
           id: _databaseService.generateId(),
@@ -51,7 +53,7 @@ class _UpdateTextViewState extends State<UpdateTextView> {
           icon: _selectedIcon,
         );
         await _databaseService.addTodo(newTodo);
-        context.router.maybePop(newTodo);
+        context.router.popForced(newTodo);
       }
       setState(() {
         _isSaving = false;
@@ -62,10 +64,8 @@ class _UpdateTextViewState extends State<UpdateTextView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(66, 85, 99, 70),
-      appBar: const AppBarView(
-        title: 'Todo Güncelle',
-      ),
+      backgroundColor: DarkAppTheme.CenterColor,
+      appBar: AppBarView(title: ''),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,8 +100,8 @@ class _UpdateTextViewState extends State<UpdateTextView> {
                       margin: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
                         color: _selectedIcon == IconList.icons[index]
-                            ? Colors.blueGrey
-                            : const Color.fromRGBO(66, 85, 99, 50),
+                            ? DarkAppTheme.ButtonColor
+                            : DarkAppTheme.TodoColor,
                         borderRadius: BorderRadius.circular(50.0),
                       ),
                       child: Icon(
@@ -116,17 +116,17 @@ class _UpdateTextViewState extends State<UpdateTextView> {
             const SizedBox(height: 20),
             Center(
                 child: Container(
-                  width: 200,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(66, 85, 99, 50),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Icon(
-                    _selectedIcon,
-                    color: Colors.white,
-                  ),
-                )),
+              width: 200,
+              height: 50,
+              decoration: BoxDecoration(
+                color: DarkAppTheme.TodoColor,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Icon(
+                _selectedIcon,
+                color: Colors.white,
+              ),
+            )),
             const SizedBox(height: 20),
             Center(
               child: Container(
@@ -146,16 +146,18 @@ class _UpdateTextViewState extends State<UpdateTextView> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 60),
             Center(
               child: ElevatedButton(
                 onPressed: _updateTodo,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(66, 85, 99, 50),
+                  backgroundColor: DarkAppTheme.ButtonColor,
                 ),
                 child: Text(
-                  widget.todo != null ? 'Güncelle' : 'Oluştur',
-                  style: const TextStyle(color: Colors.white),
+                  widget.todo != null ? Texts.ButtonNameG : Texts.ButtonNameO,
+                  style: TextStyle(
+                      fontWeight: TextStyles.TextBold,
+                      color: DarkAppTheme.TextColor),
                 ),
               ),
             )
