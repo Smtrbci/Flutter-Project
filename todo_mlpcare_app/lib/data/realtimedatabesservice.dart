@@ -24,7 +24,7 @@ class RealtimeDatabaseService {
   }
 
   Future<void> addTodo(Todo todo) {
-    return _todoRef.child(todo.id).set(todo.toMap());
+   return _todoRef.child(todo.id).set(todo.toMap());
   }
 
   Future<void> updateTodo(Todo todo) {
